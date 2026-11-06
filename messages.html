@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POPO Messages</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#faf9fc;color:#222}
+header{
+height:65px;background:white;padding:0 5%;
+display:flex;align-items:center;justify-content:space-between;
+border-bottom:1px solid #eee
+}
+.logo{
+font-size:29px;font-weight:900;
+background:linear-gradient(45deg,#ed267b,#8437dc);
+background-clip:text;color:transparent
+}
+header a{color:#333;text-decoration:none;font-size:20px}
+.app{
+max-width:1000px;height:calc(100vh - 135px);
+min-height:450px;margin:20px auto;
+background:white;border:1px solid #eee;
+border-radius:18px;display:grid;
+grid-template-columns:320px 1fr;overflow:hidden
+}
+.sidebar{border-right:1px solid #eee}
+.side-head{padding:20px;font-size:21px;font-weight:bold}
+.search{
+width:90%;margin:0 5% 15px;padding:12px;
+border:1px solid #eee;border-radius:20px;outline:none
+}
+.contact{
+padding:14px;display:flex;align-items:center;
+gap:12px;cursor:pointer;border-bottom:1px solid #f4f4f4
+}
+.contact:hover{background:#faf6fc}
+.avatar{
+width:45px;height:45px;border-radius:50%;
+background:linear-gradient(45deg,#ed267b,#8437dc);
+display:grid;place-items:center;color:white;font-weight:bold;
+flex-shrink:0
+}
+.contact p{font-size:12px;color:#888;margin-top:5px}
+.chat{display:flex;flex-direction:column;min-width:0}
+.chat-head{
+padding:15px;border-bottom:1px solid #eee;
+display:flex;align-items:center;gap:12px
+}
+.chat-head h3{font-size:16px}
+.online{font-size:12px;color:#20a56b;margin-top:5px}
+.call{margin-left:auto;border:0;background:none;font-size:23px;cursor:pointer}
+.messages{
+flex:1;overflow-y:auto;padding:20px;
+display:flex;flex-direction:column;gap:12px
+}
+.msg{
+padding:12px 15px;border-radius:15px;
+max-width:75%;font-size:14px;line-height:1.5
+}
+.received{background:#f0edf4;align-self:flex-start}
+.sent{
+background:linear-gradient(45deg,#ed267b,#8437dc);
+color:white;align-self:flex-end
+}
+.time{display:block;font-size:10px;opacity:.7;margin-top:5px}
+.input-area{
+padding:12px;border-top:1px solid #eee;
+display:flex;gap:8px;align-items:center
+}
+.input-area input{
+flex:1;min-width:0;padding:13px;
+border:1px solid #ddd;border-radius:25px;outline:none
+}
+.input-area button{
+border:0;background:none;font-size:22px;cursor:pointer
+}
+.send{
+background:linear-gradient(45deg,#ed267b,#8437dc)!important;
+color:white;border-radius:50%;width:43px;height:43px
+}
+nav{
+height:55px;position:fixed;bottom:0;
+width:100%;background:white;border-top:1px solid #eee;
+display:flex;justify-content:space-around;align-items:center
+}
+nav a{font-size:23px;color:#333;text-decoration:none}
+@media(max-width:650px){
+.app{height:calc(100vh - 120px);margin:0;border:0;border-radius:0;
+grid-template-columns:1fr}
+.sidebar{display:none}
+header{height:60px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<a href="index.html">←</a>
+<div class="logo">▶ POPO</div>
+<a href="index.html">☰</a>
+</header>
+
+<main class="app">
+
+<aside class="sidebar">
+<div class="side-head">Messages</div>
+<input class="search" placeholder="Search chats..."
+oninput="searchChats(this.value)">
+
+<div id="contacts">
+<div class="contact" onclick="openChat('Alex','A')">
+<div class="avatar">A</div>
+<div><strong>Alex</strong><p>Hey! How are you?</p></div>
+</div>
+<div class="contact" onclick="openChat('Sophia','S')">
+<div class="avatar">S</div>
+<div><strong>Sophia</strong><p>Nice photo ❤️</p></div>
+</div>
+<div class="contact" onclick="openChat('David','D')">
+<div class="avatar">D</div>
+<div><strong>David</strong><p>See you soon!</p></div>
+</div>
+</div>
+</aside>
+
+<section class="chat">
+<div class="chat-head">
+<div class="avatar" id="chatAvatar">P</div>
+<div>
+<h3 id="chatName">POPO Chat</h3>
+<p class="online">● Online interface</p>
+</div>
+<button class="call" onclick="startCall()">📹</button>
+</div>
+
+<div class="messages" id="messages">
+<div class="msg received">
+Welcome to POPO Messages! ❤️
+<span class="time">POPO</span>
+</div>
+<div class="msg sent">
+Hello! Welcome to my chat.
+<span class="time">You</span>
+</div>
+</div>
+
+<form class="input-area" id="chatForm">
+<label for="attachment" style="cursor:pointer;font-size:22px">📎</label>
+<input type="file" id="attachment" hidden accept="image/*,video/*">
+<input id="messageInput" placeholder="Write a message..." autocomplete="off">
+<button type="button" onclick="voiceMessage()">🎤</button>
+<button class="send" type="submit">➤</button>
+</form>
+</section>
+</main>
+
+<nav>
+<a href="index.html">⌂</a>
+<a href="reels.html">▷</a>
+<a href="create.html">＋</a>
+<a href="videos.html">▣</a>
+<a href="profile.html">♙</a>
+</nav>
+
+<script>
+let activeUser="POPO";
+
+function openChat(name,letter){
+activeUser=name;
+document.getElementById("chatName").textContent=name;
+document.getElementById("chatAvatar").textContent=letter;
+document.getElementById("messages").innerHTML=
+'<div class="msg received">Chat with '+name+
+'<span class="time">POPO</span></div>';
+}
+
+function addMessage(text,type){
+const div=document.createElement("div");
+div.className="msg "+type;
+div.textContent=text;
+const time=document.createElement("span");
+time.className="time";
+time.textContent="Just now";
+div.appendChild(time);
+const box=document.getElementById("messages");
+box.appendChild(div);
+box.scrollTop=box.scrollHeight;
+}
+
+document.getElementById("chatForm").addEventListener("submit",e=>{
+e.preventDefault();
+const input=document.getElementById("messageInput");
+const value=input.value.trim();
+if(!value)return;
+addMessage(value,"sent");
+input.value="";
+});
+
+function searchChats(value){
+document.querySelectorAll(".contact").forEach(contact=>{
+contact.style.display=contact.innerText.toLowerCase()
+.includes(value.toLowerCase())?"flex":"none";
+});
+}
+
+function startCall(){
+alert("Real video calling will be connected using calling infrastructure.");
+}
+
+function voiceMessage(){
+if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+alert("Microphone is not available.");
+return;
+}
+alert("Voice recording will be connected in the next development stage.");
+}
+
+document.getElementById("attachment").addEventListener("change",e=>{
+const file=e.target.files[0];
+if(file)addMessage("Attachment selected: "+file.name,"sent");
+});
+</script>
+</body>
+</html>
