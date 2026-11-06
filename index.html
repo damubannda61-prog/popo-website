@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="POPO - Share, Create, Watch and Connect">
+  <title>POPO - Social Media</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #faf9fc;
+      color: #222;
+    }
+
+    header {
+      height: 70px;
+      background: white;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(45deg,#ed267b,#8b35dc,#ff4141);
+      color: transparent;
+      background-clip: text;
+    }
+
+    .search {
+      padding: 12px 18px;
+      width: 35%;
+      border: 1px solid #eee;
+      border-radius: 25px;
+      background: #f8f6fa;
+      outline: none;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 20px;
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    .layout {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 15px;
+      display: grid;
+      grid-template-columns: minmax(0, 650px) 280px;
+      gap: 25px;
+    }
+
+    .stories, .post, .profile-card {
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .stories {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+    }
+
+    .story {
+      text-align: center;
+      min-width: 65px;
+      cursor: pointer;
+    }
+
+    .story img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      padding: 3px;
+      border: 3px solid #dc388e;
+      object-fit: cover;
+    }
+
+    .story p {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .post-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(45deg,#ed267b,#8437dc);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .post-image {
+      width: 100%;
+      height: 350px;
+      background: linear-gradient(135deg,#f7b0d1,#c9a7f8);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 55px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 22px;
+      padding: 15px 0;
+      font-size: 25px;
+    }
+
+    .actions button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .liked {
+      color: #ed267b;
+    }
+
+    .bottom-nav {
+      display: none;
+    }
+
+    .profile-card {
+      height: fit-content;
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 75px;
+      height: 75px;
+      margin: auto auto 12px;
+      border-radius: 50%;
+      background: linear-gradient(45deg,#ed267b,#8437dc);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+    }
+
+    .gradient-btn {
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(45deg,#ed267b,#8437dc);
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    @media(max-width:700px) {
+      header {
+        padding: 0 15px;
+      }
+
+      .search {
+        width: 40%;
+      }
+
+      .header-icons {
+        gap: 10px;
+      }
+
+      .layout {
+        display: block;
+        margin: 15px auto 85px;
+      }
+
+      .profile-card {
+        display: none;
+      }
+
+      .post-image {
+        height: 300px;
+      }
+
+      .bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 65px;
+        background: white;
+        border-top: 1px solid #eee;
+        align-items: center;
+        justify-content: space-around;
+        z-index: 20;
+      }
+
+      .bottom-nav button {
+        border: none;
+        background: none;
+        font-size: 23px;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="logo">▶ POPO</div>
+  <input class="search" type="search" placeholder="Search POPO...">
+  <div class="header-icons">
+    <span>♡</span>
+    <span>✉</span>
+    <span>☰</span>
+  </div>
+</header>
+
+<div class="layout">
+  <main>
+    <section class="stories">
+      <div class="story">
+        <img src="https://i.pravatar.cc/100?img=12" alt="Your story">
+        <p>＋ Your Story</p>
+      </div>
+      <div class="story">
+        <img src="https://i.pravatar.cc/100?img=5" alt="Story">
+        <p>Alex</p>
+      </div>
+      <div class="story">
+        <img src="https://i.pravatar.cc/100?img=8" alt="Story">
+        <p>Sophia</p>
+      </div>
+      <div class="story">
+        <img src="https://i.pravatar.cc/100?img=15" alt="Story">
+        <p>David</p>
+      </div>
+      <div class="story">
+        <img src="https://i.pravatar.cc/100?img=20" alt="Story">
+        <p>Emma</p>
+      </div>
+    </section>
+
+    <article class="post">
+      <div class="post-head">
+        <div class="avatar">P</div>
+        <div>
+          <strong>popo_official</strong>
+          <p style="font-size:12px;color:gray">POPO Community</p>
+        </div>
+      </div>
+
+      <div class="post-image">▶ POPO</div>
+
+      <div class="actions">
+        <button onclick="likePost(this)">♡</button>
+        <button onclick="alert('Comments coming soon')">♧</button>
+        <button onclick="sharePost()">➤</button>
+        <button onclick="savePost(this)">♧</button>
+      </div>
+
+      <strong id="likes">0 likes</strong>
+      <p style="margin-top:10px">
+        <strong>popo_official</strong>
+        Welcome to POPO! Share, Create, Watch and Connect. ❤️
+      </p>
+    </article>
+  </main>
+
+  <aside class="profile-card">
+    <div class="profile-avatar">P</div>
+    <h3>Welcome to POPO</h3>
+    <p style="color:gray;margin-top:8px">
+      Your world. Your community.
+    </p>
+    <button class="gradient-btn"
+      onclick="alert('Registration will be connected with Firebase')">
+      Join POPO
+    </button>
+  </aside>
+</div>
+
+<nav class="bottom-nav">
+  <button onclick="window.scrollTo(0,0)">⌂</button>
+  <button onclick="alert('Reels screen coming next')">▷</button>
+  <button onclick="alert('Create screen coming next')">＋</button>
+  <button onclick="alert('Videos screen coming next')">▣</button>
+  <button onclick="alert('Profile screen coming next')">♙</button>
+</nav>
+
+<script>
+  let likes = 0;
+
+  function likePost(button) {
+    likes++;
+    button.classList.add("liked");
+    button.textContent = "♥";
+    document.getElementById("likes").textContent =
+      likes + " likes";
+  }
+
+  function savePost(button) {
+    button.classList.toggle("liked");
+    alert("Save button selected");
+  }
+
+  async function sharePost() {
+    if (navigator.share) {
+      await navigator.share({
+        title: "POPO",
+        text: "Join POPO Social Media!"
+      });
+    } else {
+      alert("Share is not supported on this device");
+    }
+  }
+</script>
+</body>
+</html>
