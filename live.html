@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POPO Live</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#111;color:white;min-height:100vh;padding-bottom:30px}
+header{height:65px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#1d1d1d}
+.logo{font-size:28px;font-weight:900;background:linear-gradient(45deg,#ed267b,#8437dc);background-clip:text;color:transparent}
+header a{color:white;text-decoration:none;font-size:20px}
+main{max-width:850px;margin:25px auto;padding:0 15px}
+h2{text-align:center;margin-bottom:20px}
+.screen{height:430px;max-height:65vh;background:linear-gradient(135deg,#302044,#141414);border-radius:18px;position:relative;overflow:hidden;display:grid;place-items:center}
+#camera{width:100%;height:100%;object-fit:cover;display:none}
+.placeholder{text-align:center;color:#ddd}
+.placeholder .big{font-size:65px;margin-bottom:15px}
+.live-badge{position:absolute;top:15px;left:15px;background:#e11;color:white;padding:7px 12px;border-radius:6px;font-size:12px;font-weight:bold}
+.viewers{position:absolute;top:15px;right:15px;background:#0009;padding:8px 12px;border-radius:20px;font-size:13px}
+.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:20px 0}
+button{border:0;border-radius:25px;padding:13px 20px;font-weight:bold;cursor:pointer}
+.start{background:linear-gradient(45deg,#ed267b,#8437dc);color:white}
+.stop{background:#e33;color:white}
+.secondary{background:#333;color:white}
+.comments{background:#1e1e1e;padding:18px;border-radius:15px}
+.comments h3{margin-bottom:12px}
+#commentList{height:110px;overflow:auto;font-size:14px;color:#ddd}
+.comment-form{display:flex;gap:8px;margin-top:12px}
+.comment-form input{flex:1;min-width:0;padding:12px;border:0;border-radius:20px}
+.comment-form button{background:#8437dc;color:white}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html">←</a>
+<div class="logo">▶ POPO</div>
+<a href="profile.html">♙</a>
+</header>
+
+<main>
+<h2>POPO Live Streaming 🔴</h2>
+
+<div class="screen">
+<video id="camera" autoplay muted playsinline></video>
+<div class="placeholder" id="placeholder">
+<div class="big">📹</div>
+<strong>Welcome to POPO Live</strong>
+<p style="margin-top:8px;font-size:13px">Start your live stream</p>
+</div>
+<div class="live-badge" id="liveBadge" hidden>● LIVE</div>
+<div class="viewers">👁 <span id="viewers">0</span></div>
+</div>
+
+<div class="controls">
+<button class="start" id="startBtn" onclick="startLive()">Go Live</button>
+<button class="stop" id="stopBtn" onclick="stopLive()" hidden>End Live</button>
+<button class="secondary" onclick="switchCamera()">🔄 Switch Camera</button>
+</div>
+
+<div class="comments">
+<h3>Live Comments 💬</h3>
+<div id="commentList">Welcome to POPO Live!</div>
+<form class="comment-form" id="commentForm">
+<input id="commentInput" placeholder="Write a comment..." maxlength="300">
+<button type="submit">Send</button>
+</form>
+</div>
+</main>
+
+<script>
+let stream=null;
+let facingMode="user";
+
+async function startLive(){
+if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+alert("Camera is not available. Please use HTTPS and allow camera permission.");
+return;
+}
+try{
+stream=await navigator.mediaDevices.getUserMedia({
+video:{facingMode:facingMode},
+audio:true
+});
+const camera=document.getElementById("camera");
+camera.srcObject=stream;
+camera.style.display="block";
+document.getElementById("placeholder").style.display="none";
+document.getElementById("liveBadge").hidden=false;
+document.getElementById("startBtn").hidden=true;
+document.getElementById("stopBtn").hidden=false;
+document.getElementById("viewers").textContent="1";
+}catch(error){
+alert("Camera or microphone permission denied, or device unavailable.");
+}
+}
+
+function stopLive(){
+if(stream){
+stream.getTracks().forEach(track=>track.stop());
+stream=null;
+}
+const camera=document.getElementById("camera");
+camera.srcObject=null;
+camera.style.display="none";
+document.getElementById("placeholder").style.display="block";
+document.getElementById("liveBadge").hidden=true;
+document.getElementById("startBtn").hidden=false;
+document.getElementById("stopBtn").hidden=true;
+document.getElementById("viewers").textContent="0";
+}
+
+async function switchCamera(){
+const wasLive=!!stream;
+if(wasLive){
+stopLive();
+facingMode=facingMode==="user"?"environment":"user";
+await startLive();
+}else{
+facingMode=facingMode==="user"?"environment":"user";
+alert("Camera switched. Press Go Live to start.");
+}
+}
+
+document.getElementById("commentForm").addEventListener("submit",function(e){
+e.preventDefault();
+const input=document.getElementById("commentInput");
+const value=input.value.trim();
+if(!value)return;
+const line=document.createElement("p");
+line.textContent="You: "+value;
+line.style.marginBottom="8px";
+document.getElementById("commentList").appendChild(line);
+input.value="";
+});
+
+window.addEventListener("beforeunload",()=>{
+if(stream)stream.getTracks().forEach(track=>track.stop());
+});
+</script>
+</body>
+</html>
