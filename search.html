@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Search - POPO</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#faf9fc;color:#222;padding-bottom:75px}
+header{height:65px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid #eee}
+.logo{font-size:28px;font-weight:900;background:linear-gradient(45deg,#ed267b,#8437dc);background-clip:text;color:transparent}
+header a{color:#333;text-decoration:none;font-size:20px}
+main{max-width:850px;margin:25px auto;padding:0 15px}
+h2{margin-bottom:18px}
+.searchbox{display:flex;gap:10px}
+.searchbox input{flex:1;min-width:0;padding:15px;border:1px solid #ddd;border-radius:30px;outline:none;font-size:15px}
+.searchbox button{border:0;border-radius:30px;padding:0 22px;background:linear-gradient(45deg,#ed267b,#8437dc);color:white;font-weight:bold;cursor:pointer}
+.tabs{display:flex;gap:10px;margin:22px 0;overflow:auto}
+.tabs button{padding:10px 18px;border:1px solid #eee;background:white;border-radius:20px;cursor:pointer;white-space:nowrap}
+.tabs button.active{background:#8437dc;color:white}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.item{background:white;border:1px solid #eee;border-radius:15px;padding:15px;min-height:110px;display:flex;align-items:center;gap:12px}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(45deg,#ed267b,#8437dc);display:grid;place-items:center;color:white;font-size:20px;font-weight:bold;flex-shrink:0}
+.item p{font-size:12px;color:#888;margin-top:5px}
+.item strong{font-size:14px}
+.empty{grid-column:1/-1;text-align:center;padding:40px;color:#888}
+nav{height:58px;position:fixed;bottom:0;left:0;width:100%;background:white;border-top:1px solid #eee;display:flex;justify-content:space-around;align-items:center}
+nav a{font-size:23px;text-decoration:none;color:#333}
+@media(max-width:600px){.results{grid-template-columns:1fr}.item{min-height:85px}}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html">←</a>
+<div class="logo">▶ POPO</div>
+<a href="profile.html">♙</a>
+</header>
+
+<main>
+<h2>Explore POPO 🔍</h2>
+<form class="searchbox" id="searchForm">
+<input id="query" placeholder="Search people, creators, videos..." autocomplete="off">
+<button type="submit">Search</button>
+</form>
+
+<div class="tabs">
+<button class="active" data-type="all">All</button>
+<button data-type="people">People</button>
+<button data-type="creators">Creators</button>
+<button data-type="videos">Videos</button>
+</div>
+
+<div class="results" id="results">
+<div class="empty">Search for people, creators or videos on POPO.</div>
+</div>
+</main>
+
+<nav>
+<a href="index.html">⌂</a>
+<a href="reels.html">▷</a>
+<a href="create.html">＋</a>
+<a href="videos.html">▣</a>
+<a href="profile.html">♙</a>
+</nav>
+
+<script>
+const sampleData=[
+{type:"people",name:"Alex",detail:"POPO Member",icon:"A"},
+{type:"people",name:"Sophia",detail:"POPO Member",icon:"S"},
+{type:"creators",name:"Creative Studio",detail:"Video Creator",icon:"C"},
+{type:"creators",name:"Music World",detail:"Content Creator",icon:"M"},
+{type:"videos",name:"Travel Adventures",detail:"Video",icon:"▶"},
+{type:"videos",name:"Daily Lifestyle",detail:"Video",icon:"▶"}
+];
+
+let selectedType="all";
+let currentQuery="";
+
+const results=document.getElementById("results");
+
+function renderResults(){
+const q=currentQuery.toLowerCase().trim();
+const filtered=sampleData.filter(item=>
+(selectedType==="all"||item.type===selectedType)&&
+(item.name.toLowerCase().includes(q)||item.detail.toLowerCase().includes(q))
+);
+
+results.innerHTML="";
+
+if(!filtered.length){
+results.innerHTML='<div class="empty">No results found.</div>';
+return;
+}
+
+filtered.forEach(item=>{
+const card=document.createElement("div");
+card.className="item";
+const avatar=document.createElement("div");
+avatar.className="avatar";
+avatar.textContent=item.icon;
+const info=document.createElement("div");
+const name=document.createElement("strong");
+name.textContent=item.name;
+const detail=document.createElement("p");
+detail.textContent=item.detail;
+info.append(name,detail);
+card.append(avatar,info);
+results.appendChild(card);
+});
+}
+
+document.getElementById("searchForm").addEventListener("submit",e=>{
+e.preventDefault();
+currentQuery=document.getElementById("query").value;
+renderResults();
+});
+
+document.querySelectorAll(".tabs button").forEach(button=>{
+button.addEventListener("click",()=>{
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+selectedType=button.dataset.type;
+renderResults();
+});
+});
+</script>
+</body>
+</html>
