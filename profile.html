@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POPO Profile</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#faf9fc;color:#25212a}
+header{
+height:65px;background:white;display:flex;
+align-items:center;justify-content:space-between;
+padding:0 6%;border-bottom:1px solid #eee
+}
+.logo{
+font-size:29px;font-weight:900;
+background:linear-gradient(45deg,#ed267b,#8437dc);
+background-clip:text;color:transparent
+}
+header a{color:#333;text-decoration:none;font-size:20px}
+.container{max-width:900px;margin:25px auto;padding:15px}
+.cover{
+height:180px;border-radius:18px;
+background:linear-gradient(120deg,#ed267b,#8437dc,#ff6464);
+}
+.profile{
+display:flex;align-items:center;gap:22px;
+padding:0 20px;margin-top:-48px;
+position:relative;flex-wrap:wrap
+}
+.avatar{
+width:105px;height:105px;border:5px solid white;
+border-radius:50%;background:linear-gradient(45deg,#ed267b,#8437dc);
+color:white;display:grid;place-items:center;font-size:40px
+}
+.info{padding-top:48px}
+.info h2{font-size:22px}
+.username{color:#888;margin:6px 0}
+.bio{font-size:14px;line-height:1.5;margin-top:10px}
+.buttons{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+border:0;padding:11px 17px;border-radius:22px;
+background:linear-gradient(45deg,#ed267b,#8437dc);
+color:white;cursor:pointer;font-weight:bold
+}
+.secondary{background:#eee;color:#333}
+.stats{
+display:flex;justify-content:space-around;
+padding:25px 10px;margin:20px 0;
+background:white;border-radius:15px;text-align:center
+}
+.stats strong{display:block;font-size:21px}
+.stats span{font-size:13px;color:#777}
+.tabs{
+display:flex;justify-content:space-around;
+border-bottom:1px solid #ddd;margin-top:15px
+}
+.tabs button{
+border:0;background:none;padding:16px 8px;
+font-size:14px;cursor:pointer
+}
+.tabs button.active{color:#d72d8b;border-bottom:3px solid #d72d8b}
+.content{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:8px;margin-top:18px
+}
+.item{
+height:180px;border-radius:12px;
+background:linear-gradient(135deg,#f1a4cb,#9b78d8);
+display:grid;place-items:center;color:white;
+font-size:35px
+}
+.channel{
+background:white;padding:20px;
+border-radius:15px;margin-top:20px
+}
+.channel p{color:#777;margin:8px 0}
+nav{
+position:fixed;bottom:0;width:100%;height:60px;
+background:white;border-top:1px solid #eee;
+display:flex;justify-content:space-around;align-items:center
+}
+nav a{font-size:23px;text-decoration:none;color:#333}
+@media(max-width:600px){
+.container{margin:10px auto 75px}
+.cover{height:135px}
+.profile{gap:10px;padding:0 8px}
+.avatar{width:85px;height:85px}
+.info{padding-top:45px}
+.info h2{font-size:18px}
+.buttons{margin:10px 0 0;width:100%}
+.btn{padding:10px 13px}
+.content{grid-template-columns:repeat(3,1fr);gap:4px}
+.item{height:115px}
+.stats{padding:18px 5px}
+.stats strong{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<a href="index.html">←</a>
+<div class="logo">▶ POPO</div>
+<a href="index.html">☰</a>
+</header>
+
+<main class="container">
+
+<div class="cover"></div>
+
+<section class="profile">
+<div class="avatar">P</div>
+<div class="info">
+<h2 id="displayName">POPO Creator</h2>
+<p class="username" id="username">@popo_creator</p>
+<p class="bio" id="bio">Welcome to my POPO profile! ❤️<br>Create • Share • Connect</p>
+</div>
+<div class="buttons">
+<button class="btn" onclick="editProfile()">Edit Profile</button>
+<button class="btn secondary" onclick="shareProfile()">Share Profile</button>
+</div>
+</section>
+
+<section class="stats">
+<div><strong id="posts">0</strong><span>Posts</span></div>
+<div><strong id="followers">0</strong><span>Followers</span></div>
+<div><strong id="following">0</strong><span>Following</span></div>
+</section>
+
+<section class="tabs">
+<button class="active" onclick="showTab(this,'posts')">▦ Posts</button>
+<button onclick="showTab(this,'reels')">▷ Reels</button>
+<button onclick="showTab(this,'videos')">▣ Videos</button>
+<button onclick="showTab(this,'music')">♫ Music</button>
+</section>
+
+<section class="content" id="content">
+<div class="item">＋</div>
+<div class="item">♡</div>
+<div class="item">▶</div>
+</section>
+
+<section class="channel">
+<h3>▶ Creator Channel</h3>
+<p>Your POPO creator space</p>
+<button class="btn" onclick="location.href='create.html'">Upload Video</button>
+</section>
+
+</main>
+
+<nav>
+<a href="index.html">⌂</a>
+<a href="reels.html">▷</a>
+<a href="create.html">＋</a>
+<a href="videos.html">▣</a>
+<a href="profile.html">♙</a>
+</nav>
+
+<script>
+function editProfile(){
+const name=prompt("Enter your display name:",
+document.getElementById("displayName").textContent);
+if(name!==null&&name.trim()){
+document.getElementById("displayName").textContent=name.trim();
+}
+const username=prompt("Enter username without @:",
+document.getElementById("username").textContent.replace("@",""));
+if(username!==null&&username.trim()){
+document.getElementById("username").textContent="@"+username.trim();
+}
+const bio=prompt("Enter your bio:",
+document.getElementById("bio").innerText.replace("\n"," "));
+if(bio!==null){
+document.getElementById("bio").textContent=bio;
+}
+}
+
+function showTab(button,type){
+document.querySelectorAll(".tabs button")
+.forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+const content=document.getElementById("content");
+const symbols={posts:["＋","♡","▦"],reels:["▷","▷","▷"],videos:["▶","▶","▶"],music:["♫","♫","♫"]};
+content.innerHTML="";
+symbols[type].forEach(symbol=>{
+const item=document.createElement("div");
+item.className="item";
+item.textContent=symbol;
+content.appendChild(item);
+});
+}
+
+async function shareProfile(){
+const url=location.href;
+if(navigator.share){
+await navigator.share({title:"POPO Profile",url});
+}else if(navigator.clipboard){
+await navigator.clipboard.writeText(url);
+alert("Profile link copied!");
+}else{
+alert(url);
+}
+}
+</script>
+</body>
+</html>
