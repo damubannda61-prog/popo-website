@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings - POPO</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#faf9fc;color:#222;padding-bottom:75px}
+header{height:65px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid #eee}
+.logo{font-size:28px;font-weight:900;background:linear-gradient(45deg,#ed267b,#8437dc);background-clip:text;color:transparent}
+header a{color:#333;text-decoration:none;font-size:20px}
+main{max-width:700px;margin:25px auto;padding:0 15px}
+h2{margin-bottom:20px}
+.group-title{font-size:13px;color:#888;font-weight:bold;margin:22px 5px 10px}
+.setting{background:white;border:1px solid #eee;border-radius:12px;margin-bottom:9px;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.setting a{color:#222;text-decoration:none;display:block;width:100%}
+.setting small{display:block;color:#888;margin-top:5px;font-size:12px}
+.arrow{color:#999;font-size:20px}
+.logout{width:100%;padding:15px;border:1px solid #e44;border-radius:12px;background:white;color:#d33;font-weight:bold;margin-top:15px;cursor:pointer}
+nav{height:58px;position:fixed;bottom:0;left:0;width:100%;background:white;border-top:1px solid #eee;display:flex;justify-content:space-around;align-items:center}
+nav a{font-size:23px;text-decoration:none;color:#333}
+</style>
+</head>
+<body>
+<header>
+<a href="profile.html">←</a>
+<div class="logo">▶ POPO</div>
+<a href="profile.html">♙</a>
+</header>
+
+<main>
+<h2>Settings ⚙️</h2>
+
+<div class="group-title">ACCOUNT</div>
+<div class="setting">
+<a href="profile.html"><strong>Edit Profile</strong><small>Manage your profile information</small></a>
+<span class="arrow">›</span>
+</div>
+<div class="setting">
+<a href="messages.html"><strong>Messages</strong><small>Open your chats</small></a>
+<span class="arrow">›</span>
+</div>
+
+<div class="group-title">PRIVACY & SECURITY</div>
+<div class="setting">
+<a href="#" onclick="showInfo('Privacy settings')"><strong>Privacy</strong><small>Control who can see your content</small></a>
+<span class="arrow">›</span>
+</div>
+<div class="setting">
+<a href="#" onclick="showInfo('Security settings')"><strong>Security</strong><small>Protect your POPO account</small></a>
+<span class="arrow">›</span>
+</div>
+<div class="setting">
+<a href="#" onclick="showInfo('Password settings')"><strong>Password</strong><small>Change your account password</small></a>
+<span class="arrow">›</span>
+</div>
+
+<div class="group-title">SUPPORT</div>
+<div class="setting">
+<a href="#" onclick="showInfo('Help Center')"><strong>Help Center</strong><small>Get help with POPO</small></a>
+<span class="arrow">›</span>
+</div>
+<div class="setting">
+<a href="#" onclick="showInfo('About POPO')"><strong>About POPO</strong><small>Version 1.0</small></a>
+<span class="arrow">›</span>
+</div>
+
+<button class="logout" onclick="logout()">Log Out</button>
+</main>
+
+<nav>
+<a href="index.html">⌂</a>
+<a href="reels.html">▷</a>
+<a href="create.html">＋</a>
+<a href="videos.html">▣</a>
+<a href="profile.html">♙</a>
+</nav>
+
+<script>
+function showInfo(section){
+alert(section+" will be connected in the next development stage.");
+}
+
+function logout(){
+alert("Real account logout will work after Firebase Authentication is connected.");
+}
+</script>
+</body>
+</html>
