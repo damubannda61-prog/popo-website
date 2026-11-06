@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login - POPO</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Arial,sans-serif;
+min-height:100vh;
+background:linear-gradient(135deg,#fff0f6,#f1eaff);
+display:flex;align-items:center;justify-content:center;padding:20px
+}
+.card{
+width:100%;max-width:410px;background:white;
+padding:30px 25px;border-radius:22px;
+box-shadow:0 10px 40px #00000012
+}
+.logo{
+text-align:center;font-size:38px;font-weight:900;
+background:linear-gradient(45deg,#ed267b,#8437dc);
+background-clip:text;color:transparent;margin-bottom:10px
+}
+.subtitle{text-align:center;color:#888;font-size:14px;margin-bottom:25px}
+h2{text-align:center;margin-bottom:20px;font-size:23px}
+.field{margin-bottom:15px}
+label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}
+input{
+width:100%;padding:14px;border:1px solid #ddd;
+border-radius:11px;outline:none;font-size:15px
+}
+input:focus{border-color:#a13bd0}
+.main-btn{
+width:100%;padding:15px;border:0;border-radius:12px;
+background:linear-gradient(45deg,#ed267b,#8437dc);
+color:white;font-size:16px;font-weight:bold;cursor:pointer
+}
+.links{text-align:center;margin-top:18px;font-size:14px}
+.links button{
+border:0;background:none;color:#8437dc;
+font-weight:bold;cursor:pointer
+}
+.forgot{text-align:right;margin:-5px 0 18px}
+.forgot button{border:0;background:none;color:#8437dc;cursor:pointer;font-size:13px}
+.note{text-align:center;color:#999;font-size:11px;margin-top:22px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="logo">▶ POPO</div>
+<p class="subtitle">Connect. Create. Share.</p>
+
+<h2 id="formTitle">Welcome Back!</h2>
+
+<form id="authForm">
+<div class="field" id="nameField" hidden>
+<label for="name">Full Name</label>
+<input id="name" type="text" placeholder="Enter your name" autocomplete="name">
+</div>
+
+<div class="field">
+<label for="email">Email Address</label>
+<input id="email" type="email" placeholder="Enter your email" required autocomplete="email">
+</div>
+
+<div class="field">
+<label for="password">Password</label>
+<input id="password" type="password" placeholder="Enter password" required minlength="6" autocomplete="current-password">
+</div>
+
+<div class="forgot" id="forgotBox">
+<button type="button" onclick="forgotPassword()">Forgot Password?</button>
+</div>
+
+<button class="main-btn" type="submit" id="submitBtn">Login</button>
+</form>
+
+<div class="links">
+<span id="switchText">Don't have an account?</span>
+<button type="button" onclick="switchMode()" id="switchBtn">Sign Up</button>
+</div>
+
+<p class="note">
+By continuing, you agree to POPO's Terms and Privacy Policy.
+</p>
+</div>
+
+<script>
+let mode="login";
+
+function switchMode(){
+mode=mode==="login"?"signup":"login";
+
+document.getElementById("formTitle").textContent=
+mode==="login"?"Welcome Back!":"Create Your Account";
+
+document.getElementById("submitBtn").textContent=
+mode==="login"?"Login":"Create Account";
+
+document.getElementById("nameField").hidden=mode==="login";
+
+document.getElementById("name").required=mode==="signup";
+
+document.getElementById("password").autocomplete=
+mode==="login"?"current-password":"new-password";
+
+document.getElementById("forgotBox").hidden=mode==="signup";
+
+document.getElementById("switchText").textContent=
+mode==="login"?"Don't have an account?":"Already have an account?";
+
+document.getElementById("switchBtn").textContent=
+mode==="login"?"Sign Up":"Login";
+}
+
+document.getElementById("authForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+if(mode==="signup"){
+alert("Signup form ready. Firebase Authentication must be connected before creating a real account.");
+}else{
+alert("Login form ready. Firebase Authentication must be connected before real login.");
+}
+});
+
+function forgotPassword(){
+const email=document.getElementById("email").value.trim();
+
+if(!email){
+alert("Please enter your email address first.");
+return;
+}
+
+alert("Password reset will work after Firebase Authentication is connected.");
+}
+</script>
+</body>
+</html>
