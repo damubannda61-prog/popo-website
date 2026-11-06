@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notifications - POPO</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#faf9fc;color:#222;padding-bottom:75px}
+header{height:65px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid #eee}
+.logo{font-size:28px;font-weight:900;background:linear-gradient(45deg,#ed267b,#8437dc);background-clip:text;color:transparent}
+header a{color:#333;text-decoration:none;font-size:20px}
+main{max-width:750px;margin:25px auto;padding:0 15px}
+.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.heading h2{font-size:23px}
+.heading button{border:0;background:none;color:#8437dc;font-weight:bold;cursor:pointer}
+.section{font-weight:bold;margin:20px 0 10px}
+.notification{background:white;border:1px solid #eee;border-radius:14px;padding:15px;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.avatar{height:46px;width:46px;flex-shrink:0;border-radius:50%;background:linear-gradient(45deg,#ed267b,#8437dc);display:grid;place-items:center;color:white;font-weight:bold}
+.content{flex:1;font-size:14px;line-height:1.5}
+.content small{display:block;color:#999;margin-top:5px}
+.icon{font-size:22px}
+.unread{border-left:4px solid #8437dc}
+nav{height:58px;position:fixed;bottom:0;left:0;width:100%;background:white;border-top:1px solid #eee;display:flex;justify-content:space-around;align-items:center}
+nav a{font-size:23px;text-decoration:none;color:#333}
+@media(max-width:500px){main{margin-top:18px}.notification{padding:12px}}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html">←</a>
+<div class="logo">▶ POPO</div>
+<a href="profile.html">♙</a>
+</header>
+
+<main>
+<div class="heading">
+<h2>Notifications 🔔</h2>
+<button onclick="markAllRead()">Mark all as read</button>
+</div>
+
+<div class="section">Today</div>
+
+<div id="notificationList">
+<div class="notification unread">
+<div class="avatar">A</div>
+<div class="content"><strong>Alex</strong> liked your post ❤️<small>2 minutes ago</small></div>
+<div class="icon">❤️</div>
+</div>
+
+<div class="notification unread">
+<div class="avatar">S</div>
+<div class="content"><strong>Sophia</strong> started following you.<small>15 minutes ago</small></div>
+<div class="icon">👤</div>
+</div>
+
+<div class="notification">
+<div class="avatar">D</div>
+<div class="content"><strong>David</strong> commented: "Amazing video!"<small>1 hour ago</small></div>
+<div class="icon">💬</div>
+</div>
+
+<div class="notification">
+<div class="avatar">M</div>
+<div class="content"><strong>Music World</strong> mentioned you in a post.<small>3 hours ago</small></div>
+<div class="icon">@</div>
+</div>
+
+<div class="section">Yesterday</div>
+
+<div class="notification">
+<div class="avatar">C</div>
+<div class="content"><strong>Creative Studio</strong> shared a new video.<small>Yesterday</small></div>
+<div class="icon">▶</div>
+</div>
+</div>
+</main>
+
+<nav>
+<a href="index.html">⌂</a>
+<a href="reels.html">▷</a>
+<a href="create.html">＋</a>
+<a href="videos.html">▣</a>
+<a href="profile.html">♙</a>
+</nav>
+
+<script>
+function markAllRead(){
+document.querySelectorAll(".notification").forEach(item=>{
+item.classList.remove("unread");
+});
+alert("Demo notifications marked as read.");
+}
+</script>
+</body>
+</html>
